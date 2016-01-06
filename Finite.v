@@ -88,6 +88,7 @@ Proof.
     + apply IHxs; assumption.
 Qed.
 
+(* ftype n はちょうどn個の値を持つ  *)
 Inductive ftype : nat -> Set :=
   | ft_n : forall n, ftype (S n)
   | ft_succ : forall n, ftype n -> ftype (S n).
@@ -109,12 +110,12 @@ Definition eq_ftype_dec : forall lim (x y : ftype lim), {x = y} + {x <> y}.
         contradiction.
 Defined.
 
+(* ftype limから[0, 1, ... lim) への写像 *)
 Fixpoint ftype_nat lim (x : ftype lim): nat :=
   match x with
   | ft_n n => n
   | ft_succ _ x' => ftype_nat x'
   end.
-
 Lemma ftype_nat_limit : forall lim (x : ftype lim), ftype_nat x < lim.
 Proof.
   dependent induction x.
