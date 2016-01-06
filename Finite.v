@@ -54,17 +54,12 @@ Lemma finite_in :
  In x xs <-> In (fEmbed x) (map fEmbed xs).
 Proof.
   intros A FT.
-  induction xs.
-  - simpl.
-    split; trivial.
-  - split.
-    + intro in_x_axs.
-      simpl.
-      inversion in_x_axs.
-      * subst.
-        left; reflexivity.
-      * right.
-        apply IHxs; assumption.
+  intros x xs.
+  split.
+  - apply in_map.
+  - induction xs.
+    + simpl.
+      trivial.
     + intro in_fx_faxs.
       inversion in_fx_faxs.
       * apply fInj in H.
