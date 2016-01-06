@@ -14,14 +14,16 @@ Record DFA (dChType : Type)  :=
        dDelta : dStType -> dChType -> dStType;
        dq0 : dStType}.
 
-Definition runDFA (dChType : Type) (dfa : DFA dChType) 
-  (cs : list dChType) := fold_left (dDelta dfa) cs (dq0 dfa).
-Definition judgeDFA dChType (dfa : DFA dChType) (cs : list dChType) :=
+Definition runDFA (dChType : Type) (dfa : DFA dChType) (cs : list dChType) : dStType dfa
+  := fold_left (dDelta dfa) cs (dq0 dfa).
+Definition judgeDFA dChType (dfa : DFA dChType) (cs : list dChType) : bool :=
   dF dfa (fold_left (dDelta dfa) cs (dq0 dfa)).
-Definition AcceptDFA dChType (dfa : DFA dChType) (cs : list dChType) :=
+Definition AcceptDFA dChType (dfa : DFA dChType) (cs : list dChType) : Prop :=
   judgeDFA dfa cs = true.
-Definition Regular dChType (p : list dChType -> Prop) :=
+Definition Regular dChType (p : list dChType -> Prop) : Prop :=
   exists dfa, forall cs, p cs <-> AcceptDFA dfa cs.
+
+
 Definition ln2_0 : ftype 2 := ft_succ (ft_n 0).
 Definition ln2_1 : ftype 2 := ft_n 1.
 
