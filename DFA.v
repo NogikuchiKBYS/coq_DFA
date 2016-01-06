@@ -66,34 +66,42 @@ Proof.
   apply reg in RWn.
   inversion RWn as (k, Hk).
   assert (count_occ (@eq_ftype_dec 2) (s0m ++ s1n) ln2_0 = m) as Cm.
-  {rewrite count_occ_app.
+  {
+    rewrite count_occ_app.
     rewrite Heqs0m.
     rewrite (rep_count (@eq_ftype_dec 2) ln2_0 m).
     rewrite Heqs1n.
     rewrite (rep_count_0 (@eq_ftype_dec 2) n (not_eq_sym ln2_0_1_neq)).
     auto.
-  }assert (count_occ (@eq_ftype_dec 2) (s0m ++ s1n) ln2_0 = k) as Ck.
-  {rewrite <- Hk.
+  }
+  assert (count_occ (@eq_ftype_dec 2) (s0m ++ s1n) ln2_0 = k) as Ck.
+  {
+    rewrite <- Hk.
     rewrite count_occ_app.
     rewrite (rep_count (@eq_ftype_dec 2) ln2_0 k).
     rewrite (rep_count_0 (@eq_ftype_dec 2) k (not_eq_sym ln2_0_1_neq)).
     auto.
-  }rewrite Ck in Cm; clear Ck.
+  }
+  rewrite Ck in Cm; clear Ck.
 
   assert (count_occ (@eq_ftype_dec 2) (s0m ++ s1n) ln2_1 = n) as Cn.
-  {rewrite count_occ_app.
+  {
+    rewrite count_occ_app.
     rewrite Heqs1n.
     rewrite (rep_count (@eq_ftype_dec 2) ln2_1 n).
     rewrite Heqs0m.
     rewrite (rep_count_0 (@eq_ftype_dec 2) m ln2_0_1_neq).
     auto.
-  }assert (count_occ (@eq_ftype_dec 2) (s0m ++ s1n) ln2_1 = k) as Ck.
-  {rewrite <- Hk.
+  }
+  assert (count_occ (@eq_ftype_dec 2) (s0m ++ s1n) ln2_1 = k) as Ck.
+  {
+    rewrite <- Hk.
     rewrite count_occ_app.
     rewrite (rep_count (@eq_ftype_dec 2) ln2_1 k).
     rewrite (rep_count_0 (@eq_ftype_dec 2) k ln2_0_1_neq).
     auto.
-  }rewrite Ck in Cn; clear Ck.
+  }
+  rewrite Ck in Cn; clear Ck.
   subst.
   apply eq_sym in Cn.
   contradiction.
@@ -121,7 +129,7 @@ Proof.
   remember (dStType dfa) as stType.
   remember (dStFinite dfa) as stFinite.
   remember
-   (map (fun n => runDFA dfa (rep ln2_0 n)) (seq 0 (S maxCard))) as ws.
+    (map (fun n => runDFA dfa (rep ln2_0 n)) (seq 0 (S maxCard))) as ws.
   cut (NoDup ws).
   - apply (@PigeonHole _ _).
     rewrite Heqws.
